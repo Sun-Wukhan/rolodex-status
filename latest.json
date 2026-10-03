@@ -1,1 +1,20 @@
-{}
+{
+  "t": "2026-10-03T20:17:59.842Z",
+  "results": [
+    {
+      "id": "rolodex-demo",
+      "ok": false,
+      "status": 404,
+      "ms": 316,
+      "error": "HTTP 404"
+    }
+  ],
+  "targets": [
+    {
+      "id": "rolodex-demo",
+      "name": "Rolodex demo (GitHub Pages)",
+      "url": "https://sun-wukhan.github.io/rolodex/",
+      "expectStatus": 200
+    }
+  ]
+}

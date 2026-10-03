@@ -1,0 +1,8 @@
+[
+  {
+    "id": "rolodex-demo",
+    "name": "Rolodex demo (GitHub Pages)",
+    "url": "https://sun-wukhan.github.io/rolodex/",
+    "expectStatus": 200
+  }
+]

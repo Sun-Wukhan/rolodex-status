@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rolodex status</title>
+    <meta name="description" content="Live uptime and response-time monitor for the Rolodex demo." />
+    <link rel="stylesheet" href="site/style.css" />
+    <script type="module" src="site/app.mjs"></script>
+  </head>
+  <body>
+    <header class="top">
+      <div class="wrap">
+        <div class="brand"><span class="logo" aria-hidden="true">R</span> Rolodex status</div>
+        <div id="overall" class="pill neutral" role="status">Loading…</div>
+      </div>
+    </header>
+
+    <main class="wrap">
+      <p class="lede">
+        Health checks for the Rolodex deployment. Recorded checks run from GitHub Actions every
+        5 minutes; this page refreshes and probes each target from your browser every minute.
+      </p>
+      <div id="targets"></div>
+      <p id="error" class="error" hidden></p>
+    </main>
+
+    <footer class="wrap foot">
+      <span id="updated">-</span>
+      <span>·</span>
+      <span>Next refresh in <strong id="countdown">60</strong>s</span>
+      <span>·</span>
+      <a href="https://github.com/Sun-Wukhan/rolodex-status">Source</a>
+      <span>·</span>
+      <a href="https://github.com/Sun-Wukhan/rolodex">Rolodex</a>
+    </footer>
+  </body>
+</html>

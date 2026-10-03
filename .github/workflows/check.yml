@@ -1,0 +1,50 @@
+name: Health check
+
+on:
+  schedule:
+    # GitHub's minimum schedule interval is 5 minutes, and runs may be delayed
+    # under load. The status page itself also probes every minute from the browser.
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [targets.json]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: health-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/checkout@v6
+        with:
+          ref: data
+          path: data-branch
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+
+      - name: Run checks
+        run: node scripts/check.mjs targets.json data-branch/history.json
+
+      - name: Record results on the data branch
+        working-directory: data-branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add history.json latest.json
+          git commit -q -m "chore: record health check $(date -u +%Y-%m-%dT%H:%MZ)"
+          for attempt in 1 2 3; do
+            git push -q origin HEAD:data && exit 0
+            git pull -q --rebase origin data
+          done
+          exit 1
